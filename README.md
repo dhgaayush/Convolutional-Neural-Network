@@ -6,7 +6,7 @@ A browser-based visualizer lets you draw a digit and watch activations propagate
 
 ![Architecture](https://img.shields.io/badge/architecture-CNN-00ffe0?style=flat-square) ![Language](https://img.shields.io/badge/language-C%2B%2B17-blue?style=flat-square) ![Dataset](https://img.shields.io/badge/dataset-MNIST-ff4f7b?style=flat-square) ![Reproducible](https://img.shields.io/badge/training-reproducible-brightgreen?style=flat-square)
 
-> This project originated from a fork of an existing from-scratch CNN implementation. The core architecture and math are preserved from the original project; instead, our approach here focuses on **fixing reproducibility bugs, hardening the build, and adding a data preprocessing step**. The [Lessons Learned](#lessons-learned--common-cnn-implementation-pitfalls) section below documents the mistakes found in the original codebase in detail, specifically so other students building CNNs from scratch can recognize and avoid them.
+> This project originated from a fork of an existing from-scratch CNN implementation. The core architecture and math are preserved from the original project; our newer approach here instead focuses on **fixing reproducibility bugs, hardening the build, and adding a data preprocessing step**. The [Lessons Learned](#lessons-learned--common-cnn-implementation-pitfalls) section below documents the mistakes found in the original codebase in detail, specifically so other students building CNNs from scratch can recognize and avoid them.
 
 ---
 ## Visualization
