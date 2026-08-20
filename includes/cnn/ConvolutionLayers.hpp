@@ -1,4 +1,5 @@
 #pragma once
+#include "cnn/all_includes.hpp"
 #include "cnn/ConvolutionLayers.hpp"
 
 

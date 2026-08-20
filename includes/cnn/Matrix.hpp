@@ -1,5 +1,5 @@
 #pragma once
-#include "../cnn/all_includes.hpp"
+#include "cnn/all_includes.hpp"
 // NOTE: <random> removed — no longer needed here. All RNG usage now goes
 // through the shared Random::engine() (see Random.hpp), which is included
 // directly in Matrix.cpp where genRandomNumber() is defined. Keeping

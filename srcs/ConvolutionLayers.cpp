@@ -1,4 +1,4 @@
-#include "includes/cnn/ConvolutionLayers.hpp"
+#include "cnn/ConvolutionLayers.hpp"
 #include "cnn/Matrix.hpp"
 #include "cnn/ImageInput.hpp"
 #include "cnn/Random.hpp"
@@ -89,7 +89,7 @@ ConvolutionLayers::ConvolutionLayers(gridEntity main_image)
             temp.push_back(filter);
         }
 
-        this->second_layer_filters.push_back(temp);
+        this->training_filters.push_back(temp);
     }
 }
 
