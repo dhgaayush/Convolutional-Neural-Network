@@ -64,7 +64,7 @@ std::vector<double> createOneHot(int label) {
 }
 
 // =========================================================================
-// Conv pipeline — shared between train, eval, predict
+// Conv pipeline -- shared between train, eval, predict
 // =========================================================================
 std::vector<double> processImageThroughConvLayers(
     ConvolutionLayers& conv,
@@ -166,12 +166,12 @@ void runTraining(const std::string& modelPath) {
             }
             if (predLabel == s.label) correct++;
 
-            // Backward — FC
+            // Backward -- FC
             net.gardientComputation();
             auto gradMats = net.GetGradientMatrices();
             net.updateWeights();
 
-            // Backward — Conv layer 2
+            // Backward -- Conv layer 2
             int nCh = (int)conv.get_final_pool_maps().size();
             int gH = (int)conv.get_final_pool_maps()[0].size();
             int gW = (int)conv.get_final_pool_maps()[0][0].size();
@@ -274,7 +274,7 @@ void runEvaluation(const std::string& modelPath) {
 }
 
 // =========================================================================
-// PREDICT MODE — single image inference
+// PREDICT MODE -- single image inference
 // =========================================================================
 void runPredict(const std::string& modelPath, const std::string& imagePath) {
     ImageInput img(imagePath, 0); // 0 = grayscale
@@ -316,9 +316,9 @@ void runPredict(const std::string& modelPath, const std::string& imagePath) {
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         std::cout << "Usage:\n"
-            << "  " << argv[0] << " train   [model_path]          — train and save\n"
-            << "  " << argv[0] << " eval    [model_path]          — evaluate on test set\n"
-            << "  " << argv[0] << " predict <image.png> [model]   — predict a single image\n";
+            << "  " << argv[0] << " train   [model_path]          -- train and save\n"
+            << "  " << argv[0] << " eval    [model_path]          -- evaluate on test set\n"
+            << "  " << argv[0] << " predict <image.png> [model]   -- predict a single image\n";
         return 1;
     }
 

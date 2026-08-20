@@ -50,7 +50,7 @@ public:
     ) {
         std::ofstream f(filepath, std::ios::binary);
         if (!f.is_open())
-            throw std::runtime_error("ModelSerializer::save — cannot open file: " + filepath);
+            throw std::runtime_error("ModelSerializer::save -- cannot open file: " + filepath);
 
         // Header
         write<uint32_t>(f, MAGIC);
@@ -110,16 +110,16 @@ public:
     ) {
         std::ifstream f(filepath, std::ios::binary);
         if (!f.is_open())
-            throw std::runtime_error("ModelSerializer::load — cannot open file: " + filepath);
+            throw std::runtime_error("ModelSerializer::load -- cannot open file: " + filepath);
 
         // Header
         uint32_t magic = read<uint32_t>(f);
         uint32_t version = read<uint32_t>(f);
 
         if (magic != MAGIC)
-            throw std::runtime_error("ModelSerializer::load — invalid file (bad magic number)");
+            throw std::runtime_error("ModelSerializer::load -- invalid file (bad magic number)");
         if (version != VERSION)
-            throw std::runtime_error("ModelSerializer::load — unsupported version: " + std::to_string(version));
+            throw std::runtime_error("ModelSerializer::load -- unsupported version: " + std::to_string(version));
 
         // ----- Conv filters -----
         int nFilters = read<int>(f);
@@ -146,7 +146,7 @@ public:
         auto weightMats = net.GetWeightMatrices();
 
         if ((int)weightMats.size() != nWeightMats)
-            throw std::runtime_error("ModelSerializer::load — weight matrix count mismatch");
+            throw std::runtime_error("ModelSerializer::load -- weight matrix count mismatch");
 
         for (int mi = 0; mi < nWeightMats; mi++) {
             int rows = read<int>(f);
@@ -161,7 +161,7 @@ public:
         auto biasMats = net.GetBiasMatrices();
 
         if ((int)biasMats.size() != nBiasMats)
-            throw std::runtime_error("ModelSerializer::load — bias matrix count mismatch");
+            throw std::runtime_error("ModelSerializer::load -- bias matrix count mismatch");
 
         for (int mi = 0; mi < nBiasMats; mi++) {
             int rows = read<int>(f);
