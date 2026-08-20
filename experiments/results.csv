@@ -1,3 +1,4 @@
 timestamp,experiment,train_samples,test_samples,test_accuracy,model
 2026-08-20T14:44:01,aayush,20000,1000,8.5,aayush.bin
 2026-08-20T15:36:37,aayush dhungana,5000,1000,89.8,aayush dhungana.bin
+2026-08-20T15:48:05,aagavojha,5000,1000,89.8,aagavojha.bin
