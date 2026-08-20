@@ -1,6 +1,6 @@
-#include "../cnn/ConvolutionLayers.hpp"
-#include "../cnn/Matrix.hpp"
-#include "../cnn/ImageInput.hpp"
+#include "cnn/ConvolutionLayers.hpp"
+#include "cnn/Matrix.hpp"
+#include "cnn/ImageInput.hpp"
 #include <random>
 #include <cmath>
 

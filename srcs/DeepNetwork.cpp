@@ -1,9 +1,9 @@
-﻿#include "../cnn/Layer.hpp"
+﻿#include "cnn/Layer.hpp"
 #include <assert.h>
 #include <cmath>
 #include <algorithm>
 #include <fstream>
-#include "../cnn/DeepNetwork.hpp"
+#include "cnn/DeepNetwork.hpp"
 
 using namespace std;
 

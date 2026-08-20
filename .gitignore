@@ -39,3 +39,20 @@ opencv/*.dll
 resources
 /resource/mnist_test.csv
 /resource/mnist_train.csv
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Generated/downloaded dataset files
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Local builds
+cnn
+
+# Experiment artifacts
+my_model.bin
+checkpoint_epoch_*.bin

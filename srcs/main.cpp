@@ -1,8 +1,8 @@
-#include "../cnn/ImageInput.hpp"
-#include "../cnn/Matrix.hpp"
-#include "../cnn/ConvolutionLayers.hpp"
-#include "../cnn/DeepNetwork.hpp"
-#include "../cnn/ModelSerializer.hpp"
+#include "cnn/ImageInput.hpp"
+#include "cnn/Matrix.hpp"
+#include "cnn/ConvolutionLayers.hpp"
+#include "cnn/DeepNetwork.hpp"
+#include "cnn/ModelSerializer.hpp"
 #include <fstream>
 #include <sstream>
 #include <string>

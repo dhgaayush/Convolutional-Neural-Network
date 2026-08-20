@@ -1,4 +1,4 @@
-#include "Layer.hpp"
+#include "cnn/Layer.hpp"
 #include <numeric>
 #include <cmath>
 #include <limits>
