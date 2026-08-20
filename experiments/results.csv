@@ -1,0 +1,2 @@
+timestamp,experiment,train_samples,test_samples,test_accuracy,model
+2026-08-20T14:44:01,aayush,20000,1000,8.5,aayush.bin

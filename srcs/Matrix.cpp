@@ -1,4 +1,5 @@
 #include "cnn/Matrix.hpp"
+#include "cnn/Random.hpp"
 
 gridEntity CNN_Matrix::Matrix::convolute(gridEntity input_image_section, gridEntity filter, int stride)
 {
@@ -41,18 +42,17 @@ gridEntity CNN_Matrix::Matrix::convolute(gridEntity input_image_section, gridEnt
 
     return output;
 }
+
 double CNN_Matrix::Matrix::genRandomNumber()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd()); // MerseNetworke Twister 19937 generator seeded with rd
-
-    // Define the distribution for floating point numbers between 0 and 1
+    // Draws from the single shared engine (Random::engine()) instead of
+    // constructing a fresh random_device-seeded mt19937 on every call.
+    // This is what makes matrix randomization reproducible across runs
+    // when Random::seed(...) is set once at program start.
     std::uniform_real_distribution<float> dis(-3, 3);
-
-    // Generate a random float number between 0 and 1 with 3 decimal digits
-    float random_number = dis(gen);
-    return random_number;
+    return dis(Random::engine());
 }
+
 void CNN_Matrix::Matrix::randomize_all_values(gridEntity& mat, int numRows, int numCols)
 {
     gridEntity temp;
@@ -135,15 +135,16 @@ GeneralMatrix::Matrix::Matrix(int numRows, int numCols, bool isRandom = true)
 
 double GeneralMatrix::Matrix::genRandomNumber()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
     // He initialization: N(0, 0.1)
     // MUST include negative values or all hidden activations are positive,
     // output logits are all identical, softmax is uniform, loss = ln(10) forever.
+    //
+    // Draws from the single shared engine (Random::engine()) instead of a
+    // fresh random_device-seeded mt19937 per call, so weight init is
+    // reproducible across runs when Random::seed(...) is set once at
+    // program start.
     std::normal_distribution<double> dis(0.0, 0.1);
-
-    return dis(gen);
+    return dis(Random::engine());
 }
 
 void GeneralMatrix::Matrix::printToConsole()

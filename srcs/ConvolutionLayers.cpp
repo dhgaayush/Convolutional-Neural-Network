@@ -1,52 +1,95 @@
-#include "cnn/ConvolutionLayers.hpp"
+#include "includes/cnn/ConvolutionLayers.hpp"
 #include "cnn/Matrix.hpp"
 #include "cnn/ImageInput.hpp"
+#include "cnn/Random.hpp"
 #include <random>
 #include <cmath>
 
-ConvolutionLayers::ConvolutionLayers(gridEntity main_image) : raw_image(main_image) {
-    // Define predefined_filters for the network
-    this->predefined_filters.push_back(Filters::STRONG_VERTICAL_EDGE_DETECTION);
-    this->predefined_filters.push_back(Filters::STRONG_HORIZONTAL_EDGE_DETECTION);
-    this->predefined_filters.push_back(Filters::STRONG_DIAGONAL_EDGE_DETECTION);
+ConvolutionLayers::ConvolutionLayers(gridEntity main_image)
+    : raw_image(main_image)
+{
+    // -------------------------------------------------
+    // First convolution layer: fixed feature detectors
+    // -------------------------------------------------
+
+    this->predefined_filters.push_back(
+        Filters::STRONG_VERTICAL_EDGE_DETECTION
+    );
+
+    this->predefined_filters.push_back(
+        Filters::STRONG_HORIZONTAL_EDGE_DETECTION
+    );
+
+    this->predefined_filters.push_back(
+        Filters::STRONG_DIAGONAL_EDGE_DETECTION
+    );
 
     this->no_of_filters_used = 3;
     input_channels.resize(this->no_of_filters_used);
 
-    // Initialize trainable filters with Xavier/He initialization
+
+    // -------------------------------------------------
+    // Second convolution layer: trainable filters
+    // -------------------------------------------------
+
     this->no_of_filters_in_second_CL = 3;
 
-    // Use proper initialization: Xavier initialization
-    std::random_device rd;
-    std::mt19937 gen(rd());
 
-    // Xavier initialization: std = sqrt(2.0 / (fan_in + fan_out))
-    // For 3x3 filters with 3 input channels: fan_in = 3*3*3 = 27
-    double fan_in = 3.0 * 3.0 * this->no_of_filters_used;
-    double fan_out = 3.0 * 3.0 * this->no_of_filters_in_second_CL;
-    double std_dev = std::sqrt(2.0 / (fan_in + fan_out));
+    // -------------------------------------------------
+    // Deterministic random initialization
+    // -------------------------------------------------
 
-    std::normal_distribution<double> distribution(0.0, std_dev);
+    auto& gen = Random::engine();
 
-    for (int i = 0; i < this->no_of_filters_in_second_CL; i++)
+    // Xavier initialization:
+    //
+    // fan_in  = 3 × 3 × number_of_input_channels
+    // fan_out = 3 × 3 × number_of_output_filters
+
+    double fan_in =
+        3.0 * 3.0 * this->no_of_filters_used;
+
+    double fan_out =
+        3.0 * 3.0 * this->no_of_filters_in_second_CL;
+
+    double std_dev =
+        std::sqrt(2.0 / (fan_in + fan_out));
+
+    std::normal_distribution<double>
+        distribution(0.0, std_dev);
+
+
+    // -------------------------------------------------
+    // Create trainable filters
+    // -------------------------------------------------
+
+    for (int i = 0;
+         i < this->no_of_filters_in_second_CL;
+         i++)
     {
         volumetricEntity temp;
 
-        for (int dep = 0; dep < this->no_of_filters_used; dep++)
+        for (int j = 0;
+             j < this->no_of_filters_used;
+             j++)
         {
-            gridEntity sheet(3, std::vector<double>(3));
+            gridEntity filter(
+                3,
+                std::vector<double>(3)
+            );
 
-            // Initialize with Xavier distribution
-            for (int row = 0; row < 3; row++) {
-                for (int col = 0; col < 3; col++) {
-                    sheet[row][col] = distribution(gen);
+            for (int r = 0; r < 3; r++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    filter[r][c] = distribution(gen);
                 }
             }
 
-            temp.push_back(sheet);
+            temp.push_back(filter);
         }
 
-        this->training_filters.push_back(temp);
+        this->second_layer_filters.push_back(temp);
     }
 }
 
